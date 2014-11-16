@@ -1,0 +1,3 @@
+url=jdbc:oracle:oci:@localhost:1521:database
+username=Banque
+password=banque
