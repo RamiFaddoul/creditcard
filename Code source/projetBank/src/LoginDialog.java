@@ -23,7 +23,6 @@ public class LoginDialog extends JDialog implements ActionListener{
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textNomBanque;
 	private JTextField textCodeBanque;
-	private JPasswordField textpasswordBanque;
 	private JTextField textUserName;
 	private JPasswordField textpassword;
     private JButton loginBtn;
@@ -36,59 +35,51 @@ public class LoginDialog extends JDialog implements ActionListener{
 	public LoginDialog(boolean first) {
 		this.first=first;
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 349, 255);
+		setBounds(100, 100, 335, 212);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JLabel label = new JLabel("Nom banque");
-		label.setBounds(10, 14, 112, 14);
+		label.setBounds(10, 11, 112, 14);
 		contentPanel.add(label);
 		
 		textNomBanque = new JTextField();
 		textNomBanque.setColumns(10);
-		textNomBanque.setBounds(132, 9, 146, 20);
+		textNomBanque.setBounds(132, 6, 146, 20);
 		contentPanel.add(textNomBanque);
 		
 		JLabel label_1 = new JLabel("Code Banque");
-		label_1.setBounds(10, 42, 112, 14);
+		label_1.setBounds(10, 36, 112, 14);
 		contentPanel.add(label_1);
 		
 		textCodeBanque = new JTextField();
 		textCodeBanque.setColumns(10);
-		textCodeBanque.setBounds(132, 38, 146, 20);
+		textCodeBanque.setBounds(132, 32, 146, 20);
 		contentPanel.add(textCodeBanque);
-		
-		textpasswordBanque = new JPasswordField();
-		textpasswordBanque.setBounds(132, 67, 146, 20);
-		contentPanel.add(textpasswordBanque);
-		
-		JLabel label_2 = new JLabel("Password Banque");
-		label_2.setBounds(10, 70, 112, 14);
-		contentPanel.add(label_2);
 		
 		textUserName = new JTextField();
 		textUserName.setColumns(10);
-		textUserName.setBounds(132, 96, 146, 20);
+		textUserName.setBounds(132, 58, 146, 20);
 		contentPanel.add(textUserName);
 		
 		textpassword = new JPasswordField();
-		textpassword.setBounds(132, 125, 146, 20);
+		textpassword.setBounds(132, 84, 146, 20);
 		contentPanel.add(textpassword);
 		
 		JLabel lblNewLabel = new JLabel("UserName");
-		lblNewLabel.setBounds(10, 98, 112, 14);
+		lblNewLabel.setBounds(10, 61, 112, 14);
 		contentPanel.add(lblNewLabel);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(10, 126, 112, 14);
+		lblPassword.setBounds(10, 86, 112, 14);
 		contentPanel.add(lblPassword);
 		
 		lblerror = new JLabel("Incorrect Credentials");
 		lblerror.setForeground(Color.RED);
 		lblerror.setVisible(false);
-		lblerror.setBounds(10, 158, 125, 14);
+		lblerror.setBounds(10, 120, 125, 14);
 		contentPanel.add(lblerror);
 		{
 			JPanel buttonPane = new JPanel();
@@ -127,7 +118,7 @@ public class LoginDialog extends JDialog implements ActionListener{
 		        res= s.executeQuery("Select * from banque,employe where banque.IDBANQUE="+Integer.parseInt(textCodeBanque.getText())+" and banque.IDBANQUE=employe.IDBANQUE and employe.username='"+textUserName.getText()+"'");
 				res.next();
 				
-			    if(Arrays.equals(textpasswordBanque.getPassword(),res.getString("MotDePasse").toCharArray()) && res.getString("NomBanque").equals(textNomBanque.getText()) && 
+			    if(res.getString("NomBanque").equals(textNomBanque.getText()) && 
 			    		res.getString("Username").equals(textUserName.getText()) && 
 	                    Arrays.equals(textpassword.getPassword(),res.getString("password").toCharArray()))
 			    {
