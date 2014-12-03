@@ -1,5 +1,9 @@
 
 import java.awt.EventQueue;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -13,9 +17,12 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import java.awt.image.BufferedImage;
 
 import java.awt.Component;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -162,7 +169,7 @@ public class FenetrePrincipale implements ActionListener {
 		
 		lblNomBanque = new JLabel("Nom Banque");
 		lblNomBanque.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNomBanque.setBounds(10, 32, 285, 47);
+		lblNomBanque.setBounds(202, 32, 234, 47);
 		frame.getContentPane().add(lblNomBanque);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -197,7 +204,25 @@ public class FenetrePrincipale implements ActionListener {
 		btnPrivileges.addActionListener(this);
 		frame.getContentPane().add(btnPrivileges);
 		frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblNomBanque, mainpanel, btnNouvApp, btnProduit, btnScoring, btnClients, btnApp, menuBar, mnFichier, mntmQuitter, lblUserName, lblDate}));
-	privilege();
+		Statement s;
+		ResultSet res;
+		JLabel ic;
+		try {
+			s=connection.createStatement();
+			res= s.executeQuery("select MOTDEPASSE FROM BANQUE where IDBANQUE="+this.IdBanque);
+			res.next();
+			ic = new JLabel(new ImageIcon(res.getString("MOTDEPASSE")));
+			ic.setSize(172, 47);
+			ic.setLocation(10, 32);
+			frame.getContentPane().add(ic);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		privilege();
 		
 		
 		
